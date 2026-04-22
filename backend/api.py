@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException
-from ml_model import get_similar_startups
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 
@@ -104,11 +103,3 @@ def search_startups(query: str):
         for r in rows
     ]
 
-@app.get("/recommend/{slug}")
-def recommend(slug: str):
-    results = get_similar_startups(slug)
-
-    if not results:
-        raise HTTPException(status_code=404, detail="Startup not found")
-
-    return {"recommendations": results}
