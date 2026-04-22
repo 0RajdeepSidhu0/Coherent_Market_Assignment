@@ -4,7 +4,7 @@ import pandas as pd
 
 
 # load data
-df = pd.read_csv("data/startups_clean.csv")
+df = pd.read_csv("../data/startups_clean.csv")
 
 # vectorize names
 vectorizer = TfidfVectorizer(stop_words="english")

@@ -1,5 +1,6 @@
 // src/api.js
-const BASE_URL = "https://coherent-market-assignment-h7ah.vercel.app/";
+
+const BASE_URL = "https://coherent-market-assignment-h7ah.vercel.app";
 
 export const getStartups = async () => {
   const res = await fetch(`${BASE_URL}/startups`);

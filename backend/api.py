@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from ml_model import get_similar_startups
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import sqlite3
 
 DB_PATH = "../data/startups.db"
@@ -11,13 +11,13 @@ app = FastAPI(
     version="1.0"
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "*"
+    return response
 
 def get_connection():
     return sqlite3.connect(DB_PATH)
